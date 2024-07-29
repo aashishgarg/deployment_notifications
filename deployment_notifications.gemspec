@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = 'Deliver deployment notifications to slack'
   spec.description = 'Deliver capistrano deployment notifications to slack'
-  spec.homepage = 'https://github.com/aashishgarg'
+  spec.homepage = 'https://github.com/aashishgarg/deployment_notifications'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 2.6.0'
 
