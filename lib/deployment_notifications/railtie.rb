@@ -15,26 +15,18 @@ module DeploymentNotifications
           end
         end
       end
-    end
 
-    rake_tasks do
-      # Automatically configure Capistrano
-      Rake::Task['deploy'].enhance do
-        configure_slackistrano
-      end
-    end
-
-    # Method to configure slackistrano
-    def self.configure_slackistrano
-      # Assuming DeploymentNotifications is configured elsewhere in the app
-      config = DeploymentNotifications
-
-      Capistrano::Configuration.instance.load do
-        set :slackistrano, {
-          channel: config.channel,
-          webhook: config.webhook,
-          klass: Slackistrano::DeploymentMessaging
-        }
+      initializer 'deployment_notifications.configure_capistrano' do |app|
+        # Automatically configure Capistrano settings
+        if defined?(Capistrano::Configuration)
+          Capistrano::Configuration.instance.load do
+            set :slackistrano, {
+              channel: DeploymentNotifications.channel,
+              webhook: DeploymentNotifications.webhook,
+              klass: Slackistrano::DeploymentMessaging
+            }
+          end
+        end
       end
     end
   end
